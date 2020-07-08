@@ -1,2 +1,1 @@
-# easyAppLogic
-Generic logic for easyScience applications
+**easyInterfacingGui** is a GUI template for easyScience applications
