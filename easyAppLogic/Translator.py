@@ -17,13 +17,10 @@ class Translator(QObject):
         self._translations_path = translations_path
         self._translator = QTranslator()
         self._default_language_index = 0
-        self._languages = languages
+        self._languages = self.sortByCode(languages)
 
-    def languagesList(self, languages):
-        languages_list = []
-        for language in languages:
-            languages_list.append({ 'language': language })
-        return languages_list
+    def sortByCode(self, languages):
+        return sorted(languages, key=lambda k: k['code'])
 
     def translationFilePath(self, index):
         file_suffix = self._languages[index]['code']
