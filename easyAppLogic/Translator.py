@@ -16,8 +16,9 @@ class Translator(QObject):
         self._engine = engine
         self._translations_path = translations_path
         self._translator = QTranslator()
-        self._default_language_index = 0
         self._languages = self.sortByCode(languages)
+        self._default_language_code = 'en'
+        self.selectDefaultLanguage()
 
     def sortByCode(self, languages):
         return sorted(languages, key=lambda k: k['code'])
@@ -35,11 +36,14 @@ class Translator(QObject):
         system_language_code = system_locale[0:2]
         return system_language_code
 
-    def selectSystemLanguage(self):
+    def systemLanguageIndex(self):
         for index, language in enumerate(self._languages):
             if language['code'] == self.systemLanguageCode():
-                self._default_language_index = index
-                self.selectLanguage(index)
+                return index
+        return self.defaultLanguageIndex()
+
+    def selectSystemLanguage(self):
+        self.selectLanguage(self.systemLanguageIndex())
 
     @Slot(int)
     def selectLanguage(self, index):
@@ -58,4 +62,10 @@ class Translator(QObject):
 
     @Slot(result=int)
     def defaultLanguageIndex(self):
-        return self._default_language_index
+        for index, language in enumerate(self._languages):
+            if language['code'] == self._default_language_code:
+                return index
+        return 0
+
+    def selectDefaultLanguage(self):
+        self.selectLanguage(self.defaultLanguageIndex())
