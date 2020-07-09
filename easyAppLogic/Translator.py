@@ -10,22 +10,24 @@ from PySide2.QtQml import QQmlApplicationEngine
 
 
 class Translator(QObject):
-    def __init__(self, app, engine, translations_path):
+    def __init__(self, app, engine, translations_path, languages):
         QObject.__init__(self)
         self._app = app
         self._engine = engine
         self._translations_path = translations_path
         self._translator = QTranslator()
         self._default_language_index = 0
-        self._languages = [
-            { 'language': { 'name': 'Française', 'code': 'fr' } },
-            { 'language': { 'name': 'English', 'code': 'en' } },
-            { 'language': { 'name': 'Русский', 'code': 'ru' } }
-        ]
+        self._languages = languages
+
+    def languagesList(self, languages):
+        languages_list = []
+        for language in languages:
+            languages_list.append({ 'language': language })
+        return languages_list
 
     def translationFilePath(self, index):
-        file_suffix = self._languages[index]['language']['code']
-        file_name = f"easyTemplate_{file_suffix}.qm"
+        file_suffix = self._languages[index]['code']
+        file_name = f'language_{file_suffix}.qm'
         file_path = os.path.join(self._translations_path, file_name)
         if os.path.isfile(file_path):
             return file_path
@@ -38,7 +40,7 @@ class Translator(QObject):
 
     def selectSystemLanguage(self):
         for index, language in enumerate(self._languages):
-            if language['language']['code'] == self.systemLanguageCode():
+            if language['code'] == self.systemLanguageCode():
                 self._default_language_index = index
                 self.selectLanguage(index)
 
