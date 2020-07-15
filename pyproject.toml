@@ -1,3 +1,5 @@
+# POETRY CONFIG
+
 [build-system]
 requires = ["poetry>=1.0"]
 build-backend = "poetry.masonry.api"
@@ -9,7 +11,8 @@ description = "Generic logic for easyScience applications"
 license = "GPL-3.0-only"
 authors = ["Andrew Sazonov", "Simon Ward"]
 readme = "README.md"
-homepage = "https://github.com/easyscience"
+homepage = "https://github.com/easyScience/easyAppLogic"
+documentation = "https://github.com/easyScience/easyAppLogic"
 include = ["CHANGELOG.md"]
 packages = [ { include = "easyAppLogic" } ]
 
@@ -19,3 +22,5 @@ dicttoxml = "^1.7.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+
+# CUSTOM CONFIG
