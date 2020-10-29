@@ -20,10 +20,13 @@ class StreamToLogger(object):
       for line in buf.rstrip().splitlines():
          self.logger.log(self.log_level, line.rstrip())
 
+# Remove old log
 log_filepath = os.path.join(tempfile.gettempdir(), 'easydiffraction.log')
-os.unlink(log_filepath)
 print("Log file:", log_filepath)
+if os.path.exists(log_filepath):
+    os.remove(log_filepath)
 
+# Logging config
 logging.basicConfig(
     level=logging.WARNING,
     format='%(asctime)s %(levelname)8s %(name)-10s %(filename)-15s %(funcName)-20s %(lineno)4d %(message)s',
@@ -31,10 +34,12 @@ logging.basicConfig(
     filemode="w"
 )
 
+# Stdout -> logging
 stdout_logger = logging.getLogger('stdout')
 sl = StreamToLogger(stdout_logger, logging.WARNING)
 sys.stdout = sl
 
+# Stderr -> logging
 stderr_logger = logging.getLogger('stderr')
 sl = StreamToLogger(stderr_logger, logging.ERROR)
 sys.stderr = sl
