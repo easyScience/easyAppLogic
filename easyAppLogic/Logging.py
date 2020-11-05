@@ -22,7 +22,7 @@ class StreamToLogger(object):
 
 # Remove old log
 log_filepath = os.path.join(tempfile.gettempdir(), 'easydiffraction.log')
-print("Log file:", log_filepath)
+print(f'Log file: {log_filepath}')
 if os.path.exists(log_filepath):
     os.remove(log_filepath)
 
