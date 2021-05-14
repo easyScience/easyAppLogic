@@ -35,7 +35,7 @@ class Updater(QObject):
 
         self._process = QProcess()
         self._process.setWorkingDirectory(QApplication.applicationDirPath())
-        self._process.setWorkingDirectory("/Applications/easyDiffraction/MaintenanceTool.app/Contents/MacOS")
+        #self._process.setWorkingDirectory("/Applications/easyDiffraction/MaintenanceTool.app/Contents/MacOS")
         self._process.setProgram(Updater.exeRelativePath())
 
         # connections
@@ -213,7 +213,7 @@ class Updater(QObject):
         else:
             relative_path = "CHANGELOG.md"
         path = os.path.join(QApplication.applicationDirPath(), relative_path)
-        path = os.path.join("/Applications/easyDiffraction/MaintenanceTool.app/Contents/MacOS", relative_path)
+        #path = os.path.join("/Applications/easyDiffraction/MaintenanceTool.app/Contents/MacOS", relative_path)
         return path
 
     @staticmethod
