@@ -1,7 +1,7 @@
 import os
 import pathlib
 import re
-import requests
+#import requests
 import sys
 
 from PySide2.QtCore import QObject, QProcess, Property, Signal, Slot
